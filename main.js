@@ -1,8 +1,10 @@
 async function getproducts() {
-  const response = await fetch("https://dummyjson.com/products");
-  const data = await response.json();
+
+  try{
+  const response = await axios("https://dummyjson.com/products");
+  const data = response.data;
   const products = data.products;
-  console.log(data);
+  console.log(products);
 
  
 
@@ -13,6 +15,8 @@ async function getproducts() {
       <div class="details">
       <h3>${product.title}</h3>
       <span> price : ${product.price}</span>
+      <a href="details.html?id=${product.id}">details</a>
+      
       </div>
       
       </div>
@@ -21,6 +25,10 @@ async function getproducts() {
     }).join('');
 
   document.querySelector(".products").innerHTML = results;
+  }catch (error) {
+    console.error(error);
+  }
+
 }
 
 getproducts();
